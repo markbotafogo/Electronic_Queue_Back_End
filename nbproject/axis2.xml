@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axis2 xmlns="http://www.netbeans.org/ns/axis2/1">
+    <service name="EQCloud">
+        <service-class>EQCloud</service-class>
+    </service>
+    <libraries>
+        <library-ref name="postgresql-9.4.1208.jar"/>
+    </libraries>
+    <service name="EQCloud">
+        <service-class>EQCloud</service-class>
+    </service>
+</axis2>
