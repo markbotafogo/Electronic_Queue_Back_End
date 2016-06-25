@@ -278,7 +278,8 @@ public class EQCloud {
             Statement stat = conn.createStatement();
             
             String query = "INSERT INTO controllers (name, login, password, owner_id) "
-                    + "VALUES ('" + name + "','" + login + "', '" + password + "', " + owner + ")";
+                    + "VALUES ('" + name + "','" + login + "', crypt('" + password + "', "
+                    + "gen_salt('bf'))," + owner + ")";
                           
             if (stat.executeUpdate(query) > 0)
                 update = true;
