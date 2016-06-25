@@ -339,8 +339,9 @@ public class EQCloud {
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
-            String query = "INSERT INTO owners (login, password) VALUES "
-                    + "('" + companyName + "', '" + login + "', '" + password + "')";
+            String query = "INSERT INTO \"owners\" (company_name, login, password) VALUES "
+                    + "('" + companyName + "', '" + login + "', crypt('" + password + "', gen_salt"
+                    + "('bf')))";
                           
             if (stat.executeUpdate(query) > 0)
                 update = true;

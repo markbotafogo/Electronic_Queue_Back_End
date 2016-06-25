@@ -13,7 +13,8 @@ public class Main {
     public static void main (String[] args){
         
         EQCloud eqcloud = new EQCloud();
-        String ans = eqcloud.enterQueue(1);
+        String ans = eqcloud.createOwner("Instituto de Desorganização Pública", "indespub", 
+                "nemtenta123");
         
         System.out.println(ans);    
         
