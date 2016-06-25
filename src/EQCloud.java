@@ -25,25 +25,20 @@ public class EQCloud {
     static String userQuery = "select * from owner";
 
     
-public static String [] dbTest() {
+    public static String [] dbTest() {
     
         String res = "false";
         String [] strArr = null;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
             
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
             String query = userQuery;
             ResultSet result = stat.executeQuery(query);
-            
-            //res = result.getString("name");
-            //res = resArr.toString();
 
             while(result.next()){
                 if (res.equals("false"))
@@ -53,14 +48,7 @@ public static String [] dbTest() {
             }
 
             strArr = res.split(" ");
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
+
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -71,21 +59,19 @@ public static String [] dbTest() {
         return strArr;
     }
 
-public String plus_marco ( String in ){
+    public String plus_marco ( String in ){
         return in + "_Marco";
     }
 
-public String [] viewQueue () {
+    public String [] viewQueue () {
         
         String res = "false";
         String [] strArr = null;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
 
-            
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
@@ -130,27 +116,22 @@ public String [] viewQueue () {
     
     }
 
-public String [] searchQueueName (String search){
+    public String [] searchQueueName (String search){
 
         String res = "false";
         String [] strArr = null;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
-            
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
+           
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
             String query = "SELECT id, name, last_password_called, "
                     + "next_password_available FROM queues WHERE name LIKE '" + search + "%'";
             
-            ResultSet result = stat.executeQuery(query);
-           
-            //res = result.getString("name");
-            //res = resArr.toString();
+            ResultSet result = stat.executeQuery(query);          
 
             while(result.next()){
                 if (res.equals("false")){
@@ -168,14 +149,7 @@ public String [] searchQueueName (String search){
             }
 
             strArr = res.split("&");
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
+
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -186,17 +160,15 @@ public String [] searchQueueName (String search){
         return strArr;
     }
 
-public String searchQueueId (Integer search){
+    public String searchQueueId (Integer search){
 
         String res = "false";
-        String [] strArr = null;
+        
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
 
-            
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
@@ -204,9 +176,6 @@ public String searchQueueId (Integer search){
                     + "next_password_available FROM queues WHERE id='" + search + "'";
             
             ResultSet result = stat.executeQuery(query);
-           
-            //res = result.getString("name");
-            //res = resArr.toString();
 
             while(result.next()){
                 
@@ -227,74 +196,15 @@ public String searchQueueId (Integer search){
         return res;
     }
 
-public String [] searchQueueOwnerID (Integer ownerId){
+    public String enterQueue (Integer queue){
 
         String res = "false";
-        String [] strArr = null;
-        try {
-            //Class.forName("com.mysql.jdbc.Driver").newInstance ();
-            Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
-            
-           // System.out.println("database connected");
-            Statement stat = conn.createStatement();
-            
-            String query = "SELECT id, name, last_password_called, "
-                    + "next_password_available FROM queues WHERE owner='" + ownerId + "'";
-            
-            ResultSet result = stat.executeQuery(query);
-           
-            //res = result.getString("name");
-            //res = resArr.toString();
-
-            while(result.next()){
-                if (res.equals("false")){
-                    res = result.getString("id");
-                    res += ":" + result.getString("name").trim();
-                    res += ":" + result.getString("last_password_called");
-                    res += ":" + result.getString("next_password_available");
-                }    
-                else {
-                    res += "&" + result.getString("id");
-                    res += ":" + result.getString("name").trim();
-                    res += ":" + result.getString("last_password_called");
-                    res += ":" + result.getString("next_password_available");
-                }
-            }
-
-            strArr = res.split("&");
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
-            conn.close();
-
-        }catch (SQLException e) {e.printStackTrace();}
-        //catch (InstantiationException e) {System.out.println("InstantiationException");}
-        //catch (IllegalAccessException e) {System.out.println("IllegalAccessException");}
-        catch (ClassNotFoundException e) {e.printStackTrace();}
-
-        return strArr;
-    }
-
-public String enterQueue (Integer queue){
-
-        String res = "false";
-        String [] strArr = null;
         boolean update = false;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
 
-            
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
@@ -313,14 +223,6 @@ public String enterQueue (Integer queue){
                     update = true;             
             }
 
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -332,37 +234,27 @@ public String enterQueue (Integer queue){
     }
 
 
-public String createQueue (String name, Integer owner){
+    public String createQueue (String name, Integer owner){
 
         String res = "false";
-        String [] strArr = null;
         boolean update = false;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
             
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
             String query = "INSERT INTO queues (name, last_password_called, "
-                    + "next_password_available, owner_id) VALUES ('" + name + "', 0, 0, " + owner + ")";
+                    + "next_password_available, owner_id) VALUES ('" + name + "', 0, 1, " + owner + ")";
                           
             if (stat.executeUpdate(query) > 0)
                 update = true;
                         
             if (update)
                 res = "true";
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
+
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -373,37 +265,27 @@ public String createQueue (String name, Integer owner){
         return res;
     }
 
-public String createController (String login, String password, Integer owner){
+    public String createController (String name, String login, String password, Integer owner){
 
         String res = "false";
-        String [] strArr = null;
         boolean update = false;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
-            
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
+           
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
-            String query = "INSERT INTO controllers (login, password, owner_id) "
-                    + "VALUES ('" + login + "', '" + password + "', " + owner + ")";
+            String query = "INSERT INTO controllers (name, login, password, owner_id) "
+                    + "VALUES ('" + name + "','" + login + "', '" + password + "', " + owner + ")";
                           
             if (stat.executeUpdate(query) > 0)
                 update = true;
                         
             if (update)
                 res = "true";
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
+
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -414,18 +296,15 @@ public String createController (String login, String password, Integer owner){
         return res;
     }
 
-public String consumeQueue (Integer queue){
+    public String consumeQueue (Integer queue){
 
         String res = "false";
-        String [] strArr = null;
         boolean update = false;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
-            
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
+          
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
                   
@@ -438,14 +317,6 @@ public String consumeQueue (Integer queue){
             if (update)
                 res = "true";
             
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -456,37 +327,27 @@ public String consumeQueue (Integer queue){
         return res;
     }
 
-public String createOwner (String login, String password){
+    public String createOwner (String companyName, String login, String password){
 
         String res = "false";
-        String [] strArr = null;
         boolean update = false;
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
+            Connection conn = DriverManager.getConnection (databaseUrl,userName, userPassword);
 
-            
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
             String query = "INSERT INTO owners (login, password) VALUES "
-                    + "('" + login + "', '" + password + "')";
+                    + "('" + companyName + "', '" + login + "', '" + password + "')";
                           
             if (stat.executeUpdate(query) > 0)
                 update = true;
                         
             if (update)
                 res = "true";
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
+
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -497,26 +358,20 @@ public String createOwner (String login, String password){
         return res;
     }
 
-public String authenticateOwner (String login, String password){
+    public String authenticateOwner (String login, String password){
 
         String res = "false";
-        String [] strArr = null;
 
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
-            
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
+          
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
             String query = "SELECT id, password FROM owners WHERE login = '" + login + "'";                        
-            ResultSet result = stat.executeQuery(query);
-           
-            //res = result.getString("name");
-            //res = resArr.toString();
+            ResultSet result = stat.executeQuery(query);        
             
             if (result.next()){
                 
@@ -531,15 +386,6 @@ public String authenticateOwner (String login, String password){
             else             
                 res = "Inexistent Username";
                    
-
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -550,26 +396,20 @@ public String authenticateOwner (String login, String password){
         return res;
     }
 
-public String authenticateController (String login, String password){
+    public String authenticateController (String login, String password){
 
         String res = "false";
-        String [] strArr = null;
 
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection (databaseUrl,
-                                                        userName, userPassword);
-
-            
+            Connection conn = DriverManager.getConnection (databaseUrl, userName, userPassword);
+           
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
             String query = "SELECT owner_id, password FROM controllers WHERE login = '" + login + "'";                        
             ResultSet result = stat.executeQuery(query);
-           
-            //res = result.getString("name");
-            //res = resArr.toString();
             
             if (result.next()){
                 
@@ -577,7 +417,7 @@ public String authenticateController (String login, String password){
                 res = res.trim();
                 
                 if (res.equals(password)){
-                    res = result.getString("owner");
+                    res = result.getString("owner_id");
                 }
                 else               
                     res = "Wrong Password";
@@ -585,14 +425,6 @@ public String authenticateController (String login, String password){
             else             
                 res = "Inexistent Username";
 
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
