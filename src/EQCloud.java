@@ -186,7 +186,7 @@ public String [] searchQueueName (String search){
         return strArr;
     }
 
-public String [] searchQueueId (Integer search){
+public String searchQueueId (Integer search){
 
         String res = "false";
         String [] strArr = null;
@@ -209,29 +209,14 @@ public String [] searchQueueId (Integer search){
             //res = resArr.toString();
 
             while(result.next()){
-                if (res.equals("false")){
-                    res = result.getString("id");
-                    res += ":" + result.getString("name").trim();
-                    res += ":" + result.getString("last_password_called");
-                    res += ":" + result.getString("next_password_available");
-                }    
-                else {
-                    res += "&" + result.getString("id");
-                    res += ":" + result.getString("name").trim();
-                    res += ":" + result.getString("last_password_called");
-                    res += ":" + result.getString("next_password_available");
-                }
+                
+                res = result.getString("id");
+                res += ":" + result.getString("name").trim();
+                res += ":" + result.getString("last_password_called");
+                res += ":" + result.getString("next_password_available");
+                
             }
 
-            strArr = res.split("&");
-            /*
-            System.out.println("Result(s): ");
-            while(result.next()){
-                System.out.println("Name:\t" + result.getString("name"));
-                System.out.println("");
-            }
-            */
-            //res = "true";
             conn.close();
 
         }catch (SQLException e) {e.printStackTrace();}
@@ -239,7 +224,7 @@ public String [] searchQueueId (Integer search){
         //catch (IllegalAccessException e) {System.out.println("IllegalAccessException");}
         catch (ClassNotFoundException e) {e.printStackTrace();}
 
-        return strArr;
+        return res;
     }
 
 public String [] searchQueueOwnerID (Integer ownerId){
