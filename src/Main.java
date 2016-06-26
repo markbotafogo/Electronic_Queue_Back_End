@@ -13,8 +13,7 @@ public class Main {
     public static void main (String[] args){
         
         EQCloud eqcloud = new EQCloud();
-        String ans = eqcloud.createController("Jaiminho, o Carteiro", "jaiminho", 
-                "tangamandapio", 4);
+        String ans = eqcloud.authenticateOwner("galatico", "esqueci123");
         
         System.out.println(ans);    
         
