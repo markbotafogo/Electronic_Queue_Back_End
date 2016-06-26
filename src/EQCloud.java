@@ -328,7 +328,7 @@ public class EQCloud {
         return res;
     }
 
-    public String createOwner (String companyName, String login, String password){
+    public String createOwner (String name, String companyName, String login, String password){
 
         String res = "false";
         boolean update = false;
@@ -340,9 +340,9 @@ public class EQCloud {
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
-            String query = "INSERT INTO \"owners\" (company_name, login, password) VALUES "
-                    + "('" + companyName + "', '" + login + "', crypt('" + password + "', gen_salt"
-                    + "('bf')))";
+            String query = "INSERT INTO \"owners\" (name, company_name, login, password) VALUES "
+                    + "('" + name + "', '" + companyName + "', '" + login + "', crypt('" + password
+                    + "', gen_salt('bf')))";
                           
             if (stat.executeUpdate(query) > 0)
                 update = true;
@@ -363,7 +363,7 @@ public class EQCloud {
     public String authenticateOwner (String login, String password){
 
         String res = "false";
-
+        
         try {
             //Class.forName("com.mysql.jdbc.Driver").newInstance ();
             Class.forName("org.postgresql.Driver");
@@ -372,7 +372,7 @@ public class EQCloud {
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
-            String query = "SELECT id, login FROM owners WHERE password is NOT NULL "
+            String query = "SELECT id, name, login FROM owners WHERE password is NOT NULL "
                     + "AND password = crypt('" + password + "', password)";
             
             ResultSet result = stat.executeQuery(query);        
@@ -382,8 +382,12 @@ public class EQCloud {
                 res = result.getString("login");
                 res = res.trim();
                 
-                if (res.equals(login))
+                if (res.equals(login)){
+                    
                     res = result.getString("id");
+                    res += ":" + result.getString("name");
+                    
+                }                   
                 else               
                     res = "Inexistent Username";
             }            
@@ -412,7 +416,7 @@ public class EQCloud {
            // System.out.println("database connected");
             Statement stat = conn.createStatement();
             
-            String query = "SELECT owner_id, login FROM controllers WHERE password is NOT NULL "
+            String query = "SELECT owner_id, name, login FROM controllers WHERE password is NOT NULL "
                     + "AND password = crypt('" + password + "', password)";
             
             ResultSet result = stat.executeQuery(query);
@@ -422,8 +426,12 @@ public class EQCloud {
                 res = result.getString("login");
                 res = res.trim();
                 
-                if (res.equals(login))
+                if (res.equals(login)){
+                    
                     res = result.getString("owner_id");
+                    res += ":" + result.getString("name");
+                    
+                }
                 else               
                     res = "Inexistent Username";
             }            
